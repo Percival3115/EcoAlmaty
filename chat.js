@@ -2,7 +2,7 @@
 const CFG = {
   endpoint: '',                                   // прокси-сервер (рекомендуется для публикации); если пусто — прямой запрос к Gemini
   models: ['gemini-3.5-flash', 'gemini-3-flash-preview', 'gemini-3.7-flash'], // пробуются по порядку, если модель не найдена (404)
-  apiKey: 'AQ.Ab8RN6Jl90GU6qL6hMF4Gzc2GHZF_bnhleDiH259gXO70MEjKg',                                     // можно вписать ключ для локальной разработки
+  apiKey: 'AQ.Ab8RN6KSX88L08ooiyne3Wk4dr-MzaeNr3eRqqdF6vWsnBKD_w',                                     // можно вписать ключ для локальной разработки
   maxInput: 500, historyTurns: 8, timeoutMs: 45000
 };
 const API = m => `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`;
