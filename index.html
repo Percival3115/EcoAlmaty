@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Экологический рентген Алматы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="chat.css">
+</head>
+<body>
+<div class="bg"><main class="sheet">
+<header class="nav" id="top">
+  <a class="logo" href="#home">ЭКО<span> / АЛМАТЫ</span></a>
+  <button class="burger" aria-label="Меню" aria-expanded="false">☰</button>
+  <nav id="menu">
+    <a href="#home">Главная</a><a href="#districts">Районы</a><a href="#indicators">Экологические показатели</a>
+    <a href="#compare">Сравнение</a><a href="#method">Методология</a><a href="#sources">Источники</a>
+  </nav>
+  <a class="btn lime sm" href="#map-section">Исследовать карту</a>
+</header>
+
+<section id="home" class="hero">
+  <div>
+    <span class="tag">ПИЛОТНЫЙ ПРОЕКТ · 3 РАЙОНА</span>
+    <h1>Алматы под экологическим рентгеном</h1>
+    <p>Исследуйте экологическое состояние районов города. Озеленение, воздух, городской перегрев, транспорт и отходы — в одной интерактивной системе.</p>
+    <div class="row"><a class="btn dark" href="#districts">Исследовать районы</a><a class="btn ghost" href="#map-section">Открыть карту</a></div>
+  </div>
+  <div class="mapwrap"><div id="map-hero" class="map" role="application" aria-label="Карта районов"></div></div>
+  <div class="stats">
+    <div><b>3</b>исследуемых района</div><div><b>5</b>направлений экологического анализа</div><div><b>1</b>интерактивная карта</div>
+  </div>
+</section>
+
+<section id="why" class="block">
+  <h2>Почему это важно</h2>
+  <p class="lead">Зелёные территории, чистый воздух, температура улиц, транспортная нагрузка и обращение с отходами влияют на повседневную жизнь горожан. Чтобы обсуждать их предметно, нужны открытые, проверяемые данные — на них и построен этот атлас. Подробности по каждому району появляются только там, где есть подтверждённые источники.</p>
+  <div class="flow"><span>Геоданные</span>→<span>Спутниковые снимки и измерения</span>→<span>Обработка</span>→<span>Экологические показатели</span>→<span>Сравнение районов</span></div>
+</section>
+
+<section id="districts" class="block">
+  <h2>Три района</h2>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section id="map-section" class="block">
+  <h2 id="d-title">Выберите район</h2>
+  <div class="split">
+    <div>
+      <div class="mapbar" role="group" aria-label="Подложка">
+        <button data-base="sat">Спутник</button><button data-base="street" class="on">Улицы</button><button data-base="eco">Экологические слои</button>
+        <button id="reset">Весь город</button>
+      </div>
+      <div class="mapwrap"><div id="map-main" class="map tall"></div><div id="eco-note" class="eco-note" hidden></div></div>
+      <p class="small">По умолчанию — уличная карта OpenStreetMap. Спутниковая подложка (Esri World Imagery) — архивный снимок, не изображение в реальном времени. Границы: OpenStreetMap contributors.</p>
+    </div>
+    <aside id="d-panel" class="panel" aria-live="polite"></aside>
+  </div>
+</section>
+
+<section id="indicators" class="block">
+  <h2>Пять измерений городской среды</h2>
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div id="cat-panel" class="panel" aria-live="polite"></div>
+  <div class="chartbox" id="waste-box"><h3>Отходы · Алматы в целом, 2025 год (не по районам)</h3><canvas id="wasteChart" height="110"></canvas></div>
+</section>
+
+<section id="compare" class="block">
+  <h2>Сравнить районы</h2>
+  <div class="row" id="cmp-pick"></div>
+  <div class="tablewrap"><table id="cmp-table"></table></div>
+  <div class="chartbox"><h3 id="cmp-title">Площадь района, км² (расчёт по границам OSM)</h3><canvas id="areaChart" height="90"></canvas></div>
+  <p class="small">Общий рейтинг и сводный балл не рассчитываются: подтверждённых районных данных по экологическим показателям пока нет.</p>
+</section>
+
+<section id="method" class="block">
+  <h2>Методология</h2>
+  <div id="method-list" class="method"></div>
+</section>
+
+<section id="sources" class="block">
+  <h2>Источники</h2>
+  <ul id="src-list" class="srcs"></ul>
+</section>
+
+<section class="final"><h2>Город становится понятнее, когда его можно исследовать</h2><a class="btn lime" href="#map-section">Перейти к карте</a></section>
+<footer>ЭКОЛОГИЧЕСКИЙ РЕНТГЕН АЛМАТЫ · пилотное исследование, 3 района. Данные: Казгидромет, gov.kz, stat.gov.kz, OpenStreetMap, Esri, Copernicus, USGS/NASA (см. «Источники»).</footer>
+</main></div>
+<button id="toTop" aria-label="Наверх" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<div id="toast" role="status"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="data/environmental-data.js"></script>
+<script src="script.js"></script>
+<script src="chat.js"></script>
+</body></html>
